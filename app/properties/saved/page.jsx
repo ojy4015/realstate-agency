@@ -1,19 +1,19 @@
-"use client";
-import { useState, useEffect } from "react";
-import PropertyCard from "@/components/PropertyCard";
-import Spinner from "@/components/Spinner";
-import { toast } from "react-toastify";
+'use client';
+import { useState, useEffect } from 'react';
+import PropertyCard from '@/components/PropertyCard';
+import Spinner from '@/components/Spinner';
+import { toast } from 'react-toastify';
 
 const SavedPropertiesPage = () => {
   const [properties, setProperties] = useState([]);
   const [loading, setLoading] = useState(true);
 
   // console.log("properties >> ", properties);
-
+  // fetch the properties
   useEffect(() => {
     const fetchSavedProperties = async () => {
       try {
-        const res = await fetch("/api/bookmarks");
+        const res = await fetch('/api/bookmarks'); // GET request
         // console.log("res >> ", res);
 
         if (res?.status === 200) {
@@ -22,11 +22,11 @@ const SavedPropertiesPage = () => {
           setProperties(data); // array로 받음 //return new Response(JSON.stringify(bookmarks), { status: 200 }); <= app>api>bookmarks
         } else {
           console.log(res?.statusText);
-          toast.error("Failed to fetch saved properties");
+          toast.error('Failed to fetch saved properties');
         }
       } catch (error) {
         console.log(error);
-        toast.error("Failed to fetch saved properties");
+        toast.error('Failed to fetch saved properties');
       } finally {
         setLoading(false);
       }
@@ -34,6 +34,8 @@ const SavedPropertiesPage = () => {
 
     fetchSavedProperties();
   }, []);
+
+  // console.log(properties);
 
   return loading ? (
     <Spinner loading={loading} />

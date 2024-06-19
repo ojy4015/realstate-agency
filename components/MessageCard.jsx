@@ -119,10 +119,10 @@
 // export default MessageCard;
 
 // 새로운 방법(useGlobal)
-"use client";
-import { useState, useEffect } from "react";
-import { toast } from "react-toastify";
-import { useGlobal } from "@/context/GlobalContext";
+'use client';
+import { useState, useEffect } from 'react';
+import { toast } from 'react-toastify';
+import { useGlobal } from '@/context/GlobalContext';
 
 const MessageCard = ({ message }) => {
   // context
@@ -138,8 +138,9 @@ const MessageCard = ({ message }) => {
 
   const handleReadClick = async () => {
     try {
+      // we don't give any data because we just change(toggle) the read property.
       const res = await fetch(`/api/messages/${message._id}`, {
-        method: "PUT",
+        method: 'PUT',
       });
 
       if (res.status === 200) {
@@ -149,21 +150,21 @@ const MessageCard = ({ message }) => {
         // setUnreadCount((unreadCount) =>
         //   read ? unreadCount - 1 : unreadCount + 1 ); // global state
         if (read) {
-          toast.success("Marked as read");
+          toast.success('Marked as read');
         } else {
-          toast.success("Marked as new");
+          toast.success('Marked as new');
         }
       }
     } catch (error) {
       console.log(error);
-      toast.error("Something went wrong");
+      toast.error('Something went wrong');
     }
   };
 
   const handleDeleteClick = async () => {
     try {
       const res = await fetch(`/api/messages/${message._id}`, {
-        method: "DELETE",
+        method: 'DELETE',
       });
 
       if (res.status === 200) {
@@ -172,16 +173,17 @@ const MessageCard = ({ message }) => {
         if (!isRead) {
           setUnreadCount((prevCount) => prevCount - 1); // global state
         }
-        toast.success("Message Deleted");
+        toast.success('Message Deleted');
       } else {
-        toast.error("Message Not Deleted");
+        toast.error('Message Not Deleted');
       }
     } catch (error) {
       console.log(error);
-      toast.error("Something went wrong");
+      toast.error('Something went wrong');
     }
   };
 
+  // database에서는 삭제됐으나 화면에 나오지 않게 하기 위해
   if (isDeleted) {
     return null;
   }
@@ -194,30 +196,31 @@ const MessageCard = ({ message }) => {
         </div>
       )}
       <h2 className="text-xl mb-4">
-        <span className="font-bold">Property Inquiry:</span>{" "}
+        <span className="font-bold">Property Inquiry:</span>{' '}
         {message?.property?.name}
       </h2>
       <p className="text-gray-700">{message?.body}</p>
       <ul className="mt-4">
         <li>
+          {/* <strong>Name:</strong> {message?.sender.name} */}
           <strong>Name:</strong> {message?.name}
         </li>
         <li>
           <strong>Reply Email:</strong>
           <a href={`mailto:${message?.email}`} className="text-blue-500">
-            {" "}
+            {' '}
             {message?.email}
           </a>
         </li>
         <li>
           <strong>Reply Phone:</strong>
           <a href={`tel:${message?.phone}`} className="text-blue-500">
-            {" "}
+            {' '}
             {message?.phone}
           </a>
         </li>
         <li>
-          <strong>Received:</strong>{" "}
+          <strong>Received:</strong>{' '}
           {new Date(message?.createdAt).toLocaleString()}
         </li>
       </ul>
@@ -225,10 +228,10 @@ const MessageCard = ({ message }) => {
         // add handler
         onClick={handleReadClick}
         className={`1mt-4 mr-3  ${
-          isRead ? "bg-gray-300" : "bg-blue-500 text-white"
+          isRead ? 'bg-gray-300' : 'bg-blue-500 text-white'
         } py-1 px-3 rounded-md`}
       >
-        {isRead ? "Mark As New" : "Mark As Read"}
+        {isRead ? 'Mark As New' : 'Mark As Read'}
       </button>
       <button
         onClick={handleDeleteClick}

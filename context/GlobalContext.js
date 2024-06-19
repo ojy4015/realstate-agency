@@ -31,12 +31,14 @@
 //   return useContext(GlobalContext);
 // }
 
+//-------------------------------------------------------------------
+
 // 새로운 방법(useGlobal)
 // can share between multiple components
 
-"use client";
+'use client';
 
-import { useState, createContext, useContext } from "react";
+import { useState, createContext, useContext } from 'react';
 
 // create context
 const GlobalContext = createContext();

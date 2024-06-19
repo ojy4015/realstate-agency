@@ -1,8 +1,8 @@
-"use client";
-import { useState, useEffect } from "react";
-import PropertyCard from "@/components/PropertyCard";
-import Spinner from "@/components/Spinner";
-import Pagination from "@/components/Pagination";
+'use client';
+import { useState, useEffect } from 'react';
+import PropertyCard from '@/components/PropertyCard';
+import Spinner from '@/components/Spinner';
+import Pagination from '@/components/Pagination';
 
 const Properties = async () => {
   const [properties, setProperties] = useState([]);
@@ -11,7 +11,10 @@ const Properties = async () => {
   // 원하는 페이지로 가기, 한페이지당 아이템수
   // http://localhost:3000/api/properties?page=2&pageSize=3
   const [page, setPage] = useState(1); //default page is 1
-  const [pageSize, setPageSize] = useState(6); //default pageSize is 6
+  // const [pageSize, setPageSize] = useState(6); //default pageSize is 6
+  const [pageSize, setPageSize] = useState(
+    process.env.NEXT_PUBLIC_DEFAULT_PAGESIZE
+  ); //default pageSize is 6
   const [totalItems, setTotalItems] = useState(0); //default totalItems is 0
 
   useEffect(() => {
@@ -23,7 +26,7 @@ const Properties = async () => {
 
         // console.log("res : ", res);
         if (!res.ok) {
-          throw new Error("Failed to fetch data");
+          throw new Error('Failed to fetch data');
         }
 
         const data = await res.json();
@@ -69,6 +72,7 @@ const Properties = async () => {
               ))}
             </div>
           )}
+          {/* Pagination에서 변경된 page를 받음(onPageChange를 통해) */}
           <Pagination
             page={page}
             pageSize={pageSize}

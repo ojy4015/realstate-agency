@@ -1,11 +1,11 @@
-"use client";
-import { useState } from "react";
-import { useRouter } from "next/navigation";
+'use client';
+import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 
 const PropertySearchForm = () => {
   // 입력해야할 input이 오직 2개 이기 때문
-  const [location, setLocation] = useState("");
-  const [propertyType, setPropertyType] = useState("All");
+  const [location, setLocation] = useState('');
+  const [propertyType, setPropertyType] = useState('All');
 
   const router = useRouter();
 
@@ -14,12 +14,13 @@ const PropertySearchForm = () => {
     // console.log(propertyType, location);
 
     // redirect
-    if (location === "" && propertyType === "All") {
-      router.push("/properties"); // get all the properties
+    // default state
+    if (location === '' && propertyType === 'All') {
+      router.push('/properties'); // get all the properties
     } else {
       const query = `?location=${location}&propertyType=${propertyType}`;
       // http://localhost:3000/properties/search-results?location=Boston&propertyType=Studio
-      router.push(`/properties/search-results${query}`);
+      router.push(`/properties/search-results${query}`); // app>properties>search-results>page.jsx 로 이동
     }
   };
 
@@ -37,7 +38,7 @@ const PropertySearchForm = () => {
           id="location"
           placeholder="Enter Keywords or Location"
           className="w-full px-4 py-3 rounded-lg bg-white text-gray-800 focus:outline-none focus:ring focus:ring-blue-500"
-          value={location}
+          value={location} // state
           onChange={(e) => setLocation(e.target.value)} // update the state(location)
         />
       </div>
@@ -48,7 +49,7 @@ const PropertySearchForm = () => {
         <select
           id="property-type"
           className="w-full px-4 py-3 rounded-lg bg-white text-gray-800 focus:outline-none focus:ring focus:ring-blue-500"
-          value={propertyType}
+          value={propertyType} //state
           onChange={(e) => setPropertyType(e.target.value)} // update the state(propertyType)
         >
           <option value="All">All</option>

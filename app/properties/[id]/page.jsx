@@ -1,23 +1,24 @@
 // each property page
 
-"use client";
-import { useEffect, useState } from "react";
-import { useParams } from "next/navigation";
-import { fetchProperty } from "@/utils/requests";
-import PropertyHeaderImage from "@/components/PropertyHeaderImage";
-import Link from "next/link";
-import PropertyDetails from "@/components/PropertyDetails";
-import { FaArrowLeft } from "react-icons/fa";
-import Spinner from "@/components/Spinner";
-import PropertyImages from "@/components/PropertyImages";
-import BookmarkButton from "@/components/BookmarkButton";
-import ShareButton from "@/components/ShareButton";
-import PropertyContactForm from "@/components/PropertyContactForm";
+'use client';
+import { useEffect, useState } from 'react';
+import { useParams } from 'next/navigation';
+import { fetchProperty } from '@/utils/requests';
+import PropertyHeaderImage from '@/components/PropertyHeaderImage';
+import Link from 'next/link';
+import PropertyDetails from '@/components/PropertyDetails';
+import { FaArrowLeft } from 'react-icons/fa';
+import Spinner from '@/components/Spinner';
+import PropertyImages from '@/components/PropertyImages';
+import BookmarkButton from '@/components/BookmarkButton';
+import ShareButtons from '@/components/ShareButtons';
+import PropertyContactForm from '@/components/PropertyContactForm';
 
 const PropertyPage = () => {
   const { id } = useParams();
 
   const [property, setProperty] = useState(null);
+  // if you are fetching from the client, you should have a loading state
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -28,12 +29,13 @@ const PropertyPage = () => {
         const property = await fetchProperty(id);
         setProperty(property);
       } catch (error) {
-        console.log("Error fetching property", error);
+        console.log('Error fetching property', error);
       } finally {
         setLoading(false);
       }
     };
 
+    // every time the property changes this will run (never ending strory)
     if (property === null) {
       fetchPropertyData();
     }
@@ -72,7 +74,7 @@ const PropertyPage = () => {
             {/* Sidebar */}
             <aside className="space-y-4">
               <BookmarkButton property={property} />
-              <ShareButton property={property} />
+              <ShareButtons property={property} />
               {/* Contact Form */}
               <PropertyContactForm property={property} />
             </aside>

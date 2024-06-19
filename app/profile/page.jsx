@@ -1,21 +1,22 @@
-"use client";
+'use client';
 
-import { useEffect, useState } from "react";
+import { useEffect, useState } from 'react';
 
-import Image from "next/image";
-import Link from "next/link";
-import { useSession } from "next-auth/react";
+import Image from 'next/image';
+import Link from 'next/link';
+import { useSession } from 'next-auth/react';
 // default profile image if google doesn't have profile image
-import profileDefault from "@/assets/images/profile.png";
-import Spinner from "@/components/Spinner";
-import { toast } from "react-toastify";
+import profileDefault from '@/assets/images/profile.png';
+import Spinner from '@/components/Spinner';
+import { toast } from 'react-toastify';
 
 const ProfilePage = () => {
+  // getting user from the session in the client
   const { data: session } = useSession();
 
   // session {user: id: "fdjgjsdl.."}
 
-  console.log("session in ProfilePage : ", session);
+  // console.log('session in ProfilePage : ', session);
   const profileImage = session?.user?.image;
   const profileName = session?.user?.name;
   const profileEmail = session?.user?.email;
@@ -37,7 +38,7 @@ const ProfilePage = () => {
           setProperties(data);
         }
       } catch (error) {
-        console.log("Error fetching user properties", error);
+        console.log('Error fetching user properties', error);
       } finally {
         setLoading(false);
       }
@@ -52,15 +53,16 @@ const ProfilePage = () => {
   const handleDeleteProperty = async (propertyId) => {
     // console.log(propertyId);
     const confirmed = window.confirm(
-      "Are you sure you want to delete this property?"
+      'Are you sure you want to delete this property?'
     );
 
     if (!confirmed) return;
 
     // make a request to our API route to delete
     try {
+      // DELETE /api/properties/:id
       const res = await fetch(`/api/properties/${propertyId}`, {
-        method: "DELETE",
+        method: 'DELETE',
       });
 
       if (res.status === 200) {
@@ -69,13 +71,13 @@ const ProfilePage = () => {
           (property) => property._id !== propertyId
         );
         setProperties(updatedProperties);
-        toast.success("Property Deleted");
+        toast.success('Property Deleted');
       } else {
-        toast.error("Failed to delete property");
+        toast.error('Failed to delete property');
       }
     } catch (error) {
       console.log(error);
-      toast.error("Failed to delete property");
+      toast.error('Failed to delete property');
     }
   };
 
@@ -101,7 +103,7 @@ const ProfilePage = () => {
                   <span className="font-bold block">Name: </span> {profileName}
                 </h2>
                 <h2 className="text-2xl">
-                  <span className="font-bold block">Email: </span>{" "}
+                  <span className="font-bold block">Email: </span>{' '}
                   {profileEmail}
                 </h2>
               </div>
@@ -130,8 +132,8 @@ const ProfilePage = () => {
                       <div className="mt-2">
                         <p className="text-lg font-semibold">{property.name}</p>
                         <p className="text-gray-600">
-                          Address: {property.location.street}{" "}
-                          {property.location.city} {property.location.state}{" "}
+                          Address: {property.location.street}{' '}
+                          {property.location.city} {property.location.state}{' '}
                         </p>
                       </div>
                       <div className="mt-2">

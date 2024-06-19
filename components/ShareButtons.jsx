@@ -21,7 +21,7 @@ import {
   VKShareButton,
   WhatsappShareButton,
   WorkplaceShareButton,
-} from "react-share";
+} from 'react-share';
 
 import {
   EmailIcon,
@@ -47,7 +47,7 @@ import {
   WhatsappIcon,
   WorkplaceIcon,
   XIcon,
-} from "react-share";
+} from 'react-share';
 
 const ShareButton = ({ property }) => {
   const shareUrl = `${process.env.NEXT_PUBLIC_DOMAIN}/properties/${property?._id}`;
@@ -61,7 +61,7 @@ const ShareButton = ({ property }) => {
         <FacebookShareButton
           url={shareUrl}
           quote={property?.name}
-          hashtag={`#${property?.type?.replace(/\s/g, "")}ForRent`}
+          hashtag={`${property?.type.replace(/\s/g, '')}ForRent`}
         >
           <FacebookIcon size={40} round={true} />
         </FacebookShareButton>
@@ -69,7 +69,7 @@ const ShareButton = ({ property }) => {
         <TwitterShareButton
           url={shareUrl}
           title={property?.name}
-          hashtag={[`#${property?.type?.replace(/\s/g, "")}ForRent`]}
+          hashtag={[`${property?.type.replace(/\s/g, '')}ForRent`]}
         >
           <TwitterIcon size={40} round={true} />
         </TwitterShareButton>

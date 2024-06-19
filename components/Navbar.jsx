@@ -1,16 +1,18 @@
-"use client";
+'use client';
 
-import { useState, useEffect } from "react";
-import { usePathname } from "next/navigation";
-import Image from "next/image";
-import Link from "next/link";
-import logo from "@/assets/images/logo-white.png";
-import profileDefault from "@/assets/images/profile.png";
-import { FaGoogle } from "react-icons/fa";
-import { signIn, signOut, useSession, getProviders } from "next-auth/react";
-import UnreadMessagesCount from "@/components/UnreadMessagesCount";
+import { useState, useEffect } from 'react';
+import { usePathname } from 'next/navigation';
+import Image from 'next/image';
+import Link from 'next/link';
+import logo from '@/assets/images/logo-white.png';
+import profileDefault from '@/assets/images/profile.png';
+import { FaGoogle } from 'react-icons/fa';
+import { signIn, signOut, useSession, getProviders } from 'next-auth/react';
+import UnreadMessagesCount from '@/components/UnreadMessagesCount';
 
 const Navbar = () => {
+  // const [isLoggedIn, setIsLoggedIn] = useState(false) 중 isLoggedIn을 session으로 대체
+  // any time you want to get the session in a client side component
   const { data: session } = useSession();
   const profileImage = session?.user?.image;
 
@@ -19,7 +21,7 @@ const Navbar = () => {
   const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
   const [providers, setProviders] = useState(null);
 
-  const pathname = usePathname();
+  const pathname = usePathname(); // 현재 어느 path에 있는지 알 수 있다
   // console.log(pathname);
 
   useEffect(() => {
@@ -31,8 +33,8 @@ const Navbar = () => {
     setAuthProviders();
   }, []);
 
-  // console.log("providers ; ", providers);
-  // console.log("session ; ", session);
+  // console.log('providers ; ', providers);
+  // console.log('session ; ', session);
 
   return (
     <nav className="bg-blue-700 border-b border-blue-500">
@@ -82,7 +84,7 @@ const Navbar = () => {
                 <Link
                   href="/"
                   className={`${
-                    pathname === "/" ? "bg-balck" : ""
+                    pathname === '/' ? 'bg-balck' : ''
                   } text-white hover:bg-gray-900 hover:text-white rounded-md px-3 py-2`}
                 >
                   Home
@@ -90,7 +92,7 @@ const Navbar = () => {
                 <Link
                   href="/properties"
                   className={`${
-                    pathname === "/properties" ? "bg-balck" : ""
+                    pathname === '/properties' ? 'bg-balck' : ''
                   } text-white hover:bg-gray-900 hover:text-white rounded-md px-3 py-2`}
                 >
                   Properties
@@ -99,7 +101,7 @@ const Navbar = () => {
                   <Link
                     href="/properties/add"
                     className={`${
-                      pathname === "/properties/add" ? "bg-balck" : ""
+                      pathname === '/properties/add' ? 'bg-balck' : ''
                     } text-white hover:bg-gray-900 hover:text-white rounded-md px-3 py-2`}
                   >
                     Add Property
@@ -113,6 +115,7 @@ const Navbar = () => {
           {!session && (
             <div className="hidden md:block md:ml-6">
               <div className="flex items-center">
+                {/* 구글 이외 여러 provider가 있을 경우 */}
                 {providers &&
                   Object.values(providers).map((provider, index) => (
                     <button
@@ -239,7 +242,7 @@ const Navbar = () => {
             <Link
               href="/"
               className={`${
-                pathname === "/" ? "bg-black" : ""
+                pathname === '/' ? 'bg-black' : ''
               } text-white block rounded-md px-3 py-2 text-base font-medium`}
             >
               Home
@@ -247,7 +250,7 @@ const Navbar = () => {
             <Link
               href="/properties"
               className={`${
-                pathname === "/properties" ? "bg-black" : ""
+                pathname === '/properties' ? 'bg-black' : ''
               } text-white block rounded-md px-3 py-2 text-base font-medium`}
             >
               Properties
@@ -256,7 +259,7 @@ const Navbar = () => {
               <Link
                 href="/properties/add"
                 className={`${
-                  pathname === "/properties/add" ? "bg-black" : ""
+                  pathname === '/properties/add' ? 'bg-black' : ''
                 } text-white block rounded-md px-3 py-2 text-base font-medium`}
               >
                 Add Property

@@ -2,7 +2,7 @@ const InfoBox = ({
   // props
   heading,
   backgroundColor,
-  textColor = "text-gray-800",
+  textColor = 'text-gray-800',
   buttonInfo,
   children,
 }) => {

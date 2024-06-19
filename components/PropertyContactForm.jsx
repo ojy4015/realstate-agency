@@ -1,15 +1,15 @@
-"use Client";
-import { useState } from "react";
-import { FaPaperPlane } from "react-icons/fa";
-import { toast } from "react-toastify";
-import { useSession } from "next-auth/react";
+'use Client';
+import { useState } from 'react';
+import { FaPaperPlane } from 'react-icons/fa';
+import { toast } from 'react-toastify';
+import { useSession } from 'next-auth/react';
 
 const PropertyContactForm = ({ property }) => {
   const { data: session } = useSession();
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [message, setMessage] = useState("");
-  const [phone, setPhone] = useState("");
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [message, setMessage] = useState('');
+  const [phone, setPhone] = useState('');
   const [wasSubmitted, setWasSubmitted] = useState(false);
 
   const handleSubmit = async (e) => {
@@ -28,33 +28,33 @@ const PropertyContactForm = ({ property }) => {
 
     // data를 api로 보낸다
     try {
-      const res = await fetch("/api/messages/", {
-        method: "POST",
+      const res = await fetch('/api/messages/', {
+        method: 'POST',
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
         },
         body: JSON.stringify(data),
       });
 
-      // api로 부터 res를 받아 render
+      // api로 부터 res를 받아 render, 오로지 상태message만 받음
       if (res?.status === 200) {
-        toast.success("Message sent successfully");
+        toast.success('Message sent successfully');
         setWasSubmitted(true);
       } else if (res?.status === 400 || res?.status === 401) {
         const dataObj = await res.json();
         toast.error(dataObj?.message);
       } else {
-        toast.error("Error sending form");
+        toast.error('Error sending form');
       }
     } catch (error) {
       console.log(error);
-      toast.error("Error sending form");
+      toast.error('Error sending form');
     } finally {
       // clear the form
-      setName("");
-      setEmail("");
-      setPhone("");
-      setMessage("");
+      setName('');
+      setEmail('');
+      setPhone('');
+      setMessage('');
     }
   };
   return (
@@ -129,7 +129,7 @@ const PropertyContactForm = ({ property }) => {
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 h-44 focus:outline-none focus:shadow-outline"
               id="message"
               placeholder="Enter your message"
-              defaultValue={""}
+              defaultValue={''}
               value={message}
               onChange={(e) => setMessage(e.target.value)}
             />

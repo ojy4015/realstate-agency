@@ -1,10 +1,10 @@
-import connectDB from "@/config/database";
-import User from "@/models/User";
-import Property from "@/models/Property";
+import connectDB from '@/config/database';
+import User from '@/models/User';
+import Property from '@/models/Property';
 
-import { getSessionUser } from "@/utils/getSessionUser";
+import { getSessionUser } from '@/utils/getSessionUser';
 
-export const dynamic = "force-dynamic";
+export const dynamic = 'force-dynamic';
 
 // GET /api/bookmarks => getting bookmarks
 export const GET = async () => {
@@ -14,7 +14,7 @@ export const GET = async () => {
     // userId
     const sessionUser = await getSessionUser();
     if (!sessionUser || !sessionUser?.userId) {
-      return new Response("User ID is required", { status: 401 });
+      return new Response('User ID is required', { status: 401 });
     }
 
     const { userId } = sessionUser;
@@ -29,16 +29,17 @@ export const GET = async () => {
     // bookmarks is a array of property objcects
     const bookmarks = await Property.find({ _id: { $in: user?.bookmarks } });
 
-    // console.log("bookmarks -----> ", bookmarks);
+    // console.log('bookmarks -----> ', bookmarks);
     // return new  Response(JSON.stringify({ bookmarks }), { status: 200 });
     return new Response(JSON.stringify(bookmarks), { status: 200 });
   } catch (error) {
     console.log(error);
-    return new Response("Something went wrong", { status: 500 });
+    return new Response('Something went wrong', { status: 500 });
   }
 };
 
 // POST /api/bookmarks => adding a bookmarks
+// we get data from the body not from the url so we don't have  (request, { params })
 export const POST = async (request) => {
   try {
     await connectDB();
@@ -49,7 +50,7 @@ export const POST = async (request) => {
     // userId
     const sessionUser = await getSessionUser();
     if (!sessionUser || !sessionUser?.userId) {
-      return new Response("User ID is required", { status: 401 });
+      return new Response('User ID is required', { status: 401 });
     }
 
     const { userId } = sessionUser;
@@ -65,12 +66,12 @@ export const POST = async (request) => {
     if (isBookmarked) {
       // if already bookmarked, remove it
       user?.bookmarks?.pull(propertyId);
-      message = "Bookmark removed successfully";
+      message = 'Bookmark removed successfully';
       isBookmarked = false;
     } else {
       // if not bookmarked, add it
       user?.bookmarks?.push(propertyId);
-      message = "Bookmark added successfully";
+      message = 'Bookmark added successfully';
       isBookmarked = true;
     }
 
@@ -82,6 +83,6 @@ export const POST = async (request) => {
     });
   } catch (error) {
     console.log(error);
-    return new Response("Something went wrong", { status: 500 });
+    return new Response('Something went wrong', { status: 500 });
   }
 };

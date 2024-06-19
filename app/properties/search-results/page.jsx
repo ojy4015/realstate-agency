@@ -1,33 +1,36 @@
-"use client";
-import { useEffect, useState } from "react";
-// we need to get it directly from this URL
-import { useSearchParams } from "next/navigation";
+// app>api>properties/search>route.js에서 불러옴
+'use client';
+import { useEffect, useState } from 'react';
+// we need to get it directly from this web browser(chrome) URL
+import { useSearchParams } from 'next/navigation';
 
-import Link from "next/link";
-import { FaArrowAltCircleLeft } from "react-icons/fa";
-import PropertyCard from "@/components/PropertyCard";
-import Spinner from "@/components/Spinner";
+import Link from 'next/link';
+import { FaArrowAltCircleLeft } from 'react-icons/fa';
+import PropertyCard from '@/components/PropertyCard';
+import Spinner from '@/components/Spinner';
 
-import PropertySearchForm from "@/components/PropertySearchForm";
+import PropertySearchForm from '@/components/PropertySearchForm';
 
 const SearchResultsPage = () => {
   const [properties, setProperties] = useState([]);
   const [loading, setLoading] = useState(true);
-
-  const searchParams = useSearchParams();
+  // we need to get it directly from this web browser URL
   // http://localhost:3000/properties/search-results?location=Boston&propertyType=Studio
+  const searchParams = useSearchParams();
 
   //   console.log(searchParams.get("location"));
-  const location = searchParams.get("location"); //Boston
-  const propertyType = searchParams.get("propertyType"); //Studio
+  const location = searchParams.get('location'); //Boston
+  const propertyType = searchParams.get('propertyType'); //Studio
 
   useEffect(() => {
     const fetchSearchResults = async () => {
       try {
+        // app>api>properties>search>route로 보냄
         const res = await fetch(
           `/api/properties/search?location=${location}&propertyType=${propertyType}`
         );
 
+        // app>api>properties>search>route에서 받음
         if (res.status === 200) {
           const data = await res.json();
           setProperties(data);
@@ -35,7 +38,7 @@ const SearchResultsPage = () => {
           setProperties([]);
         }
       } catch (error) {
-        console.log("Error searching property", error);
+        console.log('Error searching property', error);
       } finally {
         setLoading(false);
       }
@@ -57,7 +60,7 @@ const SearchResultsPage = () => {
         <Spinner loading={loading} />
       ) : (
         <section className="px-4 py-6">
-          <div className="container-xl lg:container m-auto px-4 py-6">
+          <div className="container-xl lg:container mx-auto px-4 py-6">
             <Link
               href="/properties"
               className="flex items-center text-blue-500 hover:underline mb-3"

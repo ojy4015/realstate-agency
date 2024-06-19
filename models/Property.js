@@ -1,12 +1,12 @@
 // Property model
 
-import { Schema, model, models } from "mongoose";
+import { Schema, model, models } from 'mongoose';
 
 const PropertySchema = new Schema(
   {
     owner: {
       type: Schema.Types.ObjectId,
-      ref: "User",
+      ref: 'User', // Collection
       required: true,
     },
     name: {
@@ -88,6 +88,6 @@ const PropertySchema = new Schema(
   }
 );
 
-const Property = models.Property || model("Property", PropertySchema);
+const Property = models.Property || model('Property', PropertySchema);
 
 export default Property;

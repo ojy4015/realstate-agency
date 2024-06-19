@@ -1,9 +1,9 @@
-import { getServerSession } from "next-auth/next";
-import { authOptions } from "@/utils/authOptions";
+import { getServerSession } from 'next-auth/next';
+import { authOptions } from '@/utils/authOptions';
 
 export const getSessionUser = async () => {
   try {
-    // get the user from the session
+    // get the user from the session from the backend
     const session = await getServerSession(authOptions);
 
     if (!session || !session.user) {
