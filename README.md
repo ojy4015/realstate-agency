@@ -1,3 +1,4 @@
+이 프로젝트는 nextjs로 만들었으며 bradtravaesy의 강의를 기본으로 만들었으며 앞으로 기능을 확충할 계획임.
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
