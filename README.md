@@ -1,5 +1,8 @@
-이 프로젝트는 nextjs로 만들었으며 bradtravaesy의 강의를 기본으로 만들었으며 앞으로 기능을 확충할 계획임.
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+This is the main project from my Next 14 From Scratch Course
+
+This is the old version of the app that uses API routes for properties, messaging, etc. 
+The current/latest version of the courses uses server actions. The updated code can be found here as well as in the refactor branch.
+
 
 ## Getting Started
 
